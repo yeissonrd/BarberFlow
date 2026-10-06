@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo.png">
+    <title>BarberFlow · Reserva de citas</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="reserva">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header id="site-header"></header>
+
+    <main id="contenido" class="section">
+        <div class="container" style="max-width:760px">
+            <h1>Reserva tu cita</h1>
+            <p class="muted">Sigue los 4 pasos. Los horarios que ves son de demostración.</p>
+
+            <ol class="stepper" aria-label="Pasos de la reserva">
+                <li data-step="1">1. Servicio</li>
+                <li data-step="2">2. Barbero</li>
+                <li data-step="3">3. Fecha y hora</li>
+                <li data-step="4">4. Confirmar</li>
+            </ol>
+
+            <div id="live" role="status" aria-live="polite" hidden></div>
+
+            <div class="card card--paper" id="wizard">
+                <div class="wizard-step" data-step="1">
+                    <fieldset style="border:0; padding:0; margin:0">
+                        <legend><h2>Elige tu servicio</h2></legend>
+                        <div id="opc-servicios"></div>
+                    </fieldset>
+                </div>
+
+                <div class="wizard-step" data-step="2" hidden>
+                    <fieldset style="border:0; padding:0; margin:0">
+                        <legend><h2>Escoge tu barbero</h2></legend>
+                        <div id="opc-barberos"></div>
+                    </fieldset>
+                </div>
+
+                <div class="wizard-step form" data-step="3" hidden>
+                    <h2>Selecciona fecha y horario</h2>
+                    <div class="field">
+                        <label for="fecha">Fecha</label>
+                        <input type="date" id="fecha">
+                    </div>
+                    <fieldset style="border:0; padding:0; margin:0">
+                        <legend class="small muted">Horarios (los tachados no están disponibles)</legend>
+                        <div class="slots" id="slots"></div>
+                    </fieldset>
+                    <p class="small muted" id="slots-info" aria-live="polite"></p>
+                </div>
+
+                <div class="wizard-step" data-step="4" hidden>
+                    <h2>Confirma tu cita</h2>
+                    <dl class="summary" id="resumen"></dl>
+                    <p class="alert alert--info">🔔 Te enviaremos un recordatorio antes de tu cita.</p>
+                </div>
+
+                <p class="alert alert--err" id="paso-error" role="alert" hidden></p>
+
+                <div class="wizard-nav">
+                    <button class="btn btn--outline" type="button" id="btn-atras" hidden>← Atrás</button>
+                    <span></span>
+                    <button class="btn" type="button" id="btn-sig">Continuar →</button>
+                    <button class="btn" type="button" id="btn-confirmar" hidden>Confirmar cita</button>
+                </div>
+            </div>
+
+            <div class="card card--paper" id="confirmacion" tabindex="-1" role="status" hidden></div>
+
+            <section class="card card--paper" style="margin-top:1.5rem" aria-labelledby="t-mis-citas">
+                <h2 id="t-mis-citas">Tus próximas citas</h2>
+                <p class="small muted">Puedes cancelar hasta 2 horas antes, o reprogramar a otro horario.</p>
+                <div id="mis-citas"></div>
+            </section>
+        </div>
+    </main>
+
+    <footer id="site-footer"></footer>
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo.png">
+    <title>BarberFlow · Administración</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="admin">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header id="site-header"></header>
+
+    <main id="contenido" class="section">
+        <div class="container">
+            <h1>Administración</h1>
+            <p class="demo-banner"><strong>Datos de demostración:</strong> todas las cifras y registros de esta página son de ejemplo, no son datos reales. Los cambios que hagas solo duran mientras la página esté abierta.</p>
+
+            <div class="tabs" role="tablist" aria-label="Secciones de administración">
+                <button class="tab" role="tab" data-tab="finanzas" aria-selected="true" aria-controls="panel-finanzas">Finanzas</button>
+                <button class="tab" role="tab" data-tab="clientes" aria-selected="false" aria-controls="panel-clientes">Clientes</button>
+                <button class="tab" role="tab" data-tab="barberos" aria-selected="false" aria-controls="panel-barberos">Barberos</button>
+                <button class="tab" role="tab" data-tab="servicios" aria-selected="false" aria-controls="panel-servicios">Servicios</button>
+                <button class="tab" role="tab" data-tab="productos" aria-selected="false" aria-controls="panel-productos">Productos</button>
+            </div>
+
+            <!-- Finanzas -->
+            <section class="tab-panel" id="panel-finanzas" role="tabpanel">
+                <div class="card card--paper form" style="margin-bottom:1rem">
+                    <div class="field" style="max-width:260px; margin:0">
+                        <label for="fin-periodo">Periodo</label>
+                        <select id="fin-periodo">
+                            <option value="actual">Mes actual</option>
+                            <option value="anterior">Mes anterior</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="kpis" id="kpis"></div>
+                <div class="grid grid--3">
+                    <div class="card card--paper"><h2>Ingresos</h2><div id="fin-ingresos"></div></div>
+                    <div class="card card--paper"><h2>Gastos</h2><div id="fin-gastos"></div></div>
+                    <div class="card card--paper"><h2>Métodos de pago</h2><div id="fin-pagos"></div></div>
+                </div>
+            </section>
+
+            <!-- Clientes -->
+            <section class="tab-panel" id="panel-clientes" role="tabpanel" hidden>
+                <div class="card card--paper">
+                    <h2>Clientes</h2>
+                    <div class="table-wrap"><table>
+                        <thead><tr><th>Nombre</th><th>Correo</th><th>Teléfono</th><th>Tipo</th><th class="num">Acciones</th></tr></thead>
+                        <tbody id="tabla-clientes"></tbody></table></div>
+                    <form class="form inline-form" id="form-clientes" novalidate aria-label="Agregar o editar cliente"></form>
+                </div>
+            </section>
+
+            <!-- Barberos -->
+            <section class="tab-panel" id="panel-barberos" role="tabpanel" hidden>
+                <div class="card card--paper">
+                    <h2>Barberos</h2>
+                    <div class="table-wrap"><table>
+                        <thead><tr><th>Nombre</th><th>Especialidad</th><th>Estado</th><th class="num">Acciones</th></tr></thead>
+                        <tbody id="tabla-barberos"></tbody></table></div>
+                    <form class="form inline-form" id="form-barberos" novalidate aria-label="Agregar o editar barbero"></form>
+                </div>
+            </section>
+
+            <!-- Servicios -->
+            <section class="tab-panel" id="panel-servicios" role="tabpanel" hidden>
+                <div class="card card--paper">
+                    <h2>Servicios</h2>
+                    <div class="table-wrap"><table>
+                        <thead><tr><th>Nombre</th><th>Precio</th><th>Duración</th><th class="num">Acciones</th></tr></thead>
+                        <tbody id="tabla-servicios"></tbody></table></div>
+                    <form class="form inline-form" id="form-servicios" novalidate aria-label="Agregar o editar servicio"></form>
+                </div>
+            </section>
+
+            <!-- Productos -->
+            <section class="tab-panel" id="panel-productos" role="tabpanel" hidden>
+                <div class="card card--paper">
+                    <h2>Productos</h2>
+                    <div class="table-wrap"><table>
+                        <thead><tr><th>Nombre</th><th>Precio</th><th>Stock</th><th class="num">Acciones</th></tr></thead>
+                        <tbody id="tabla-productos"></tbody></table></div>
+                    <form class="form inline-form" id="form-productos" novalidate aria-label="Agregar o editar producto"></form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer id="site-footer"></footer>
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

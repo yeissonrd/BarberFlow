@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo.png">
+    <title>BarberFlow · Mi perfil</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="perfil">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header id="site-header"></header>
+
+    <main id="contenido" class="section">
+        <div class="container">
+            <h1 id="hola">Hola</h1>
+            <p class="muted">Datos de ejemplo del cliente (demostración).</p>
+            <div id="live" role="status" aria-live="polite" hidden></div>
+
+            <div class="grid grid--2" style="margin-top:1rem">
+                <section class="card card--paper" aria-labelledby="t-datos">
+                    <h2 id="t-datos">Mis datos</h2>
+                    <dl class="summary" id="perfil-datos"></dl>
+                </section>
+
+                <section class="card card--paper" aria-labelledby="t-puntos">
+                    <h2 id="t-puntos">Mis puntos</h2>
+                    <div class="points">
+                        <div><span class="points__num" id="puntos-total">0</span> <span class="muted">pts</span></div>
+                        <div class="progress">
+                            <div class="progress__bar" aria-hidden="true"><div class="progress__fill" id="puntos-fill"></div></div>
+                            <p class="small muted" id="puntos-texto" style="margin:.4rem 0 0"></p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <section class="card card--paper" style="margin-top:1.2rem" aria-labelledby="t-citas">
+                <h2 id="t-citas">Próximas citas</h2>
+                <div id="perfil-citas"></div>
+                <p style="margin:1rem 0 0"><a class="btn btn--sm" href="reserva.html">Agendar nueva cita</a></p>
+            </section>
+
+            <div class="grid grid--2" style="margin-top:1.2rem">
+                <section class="card card--paper" aria-labelledby="t-hist">
+                    <h2 id="t-hist">Historial de servicios</h2>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Fecha</th><th>Servicio</th><th>Barbero</th><th class="num">Puntos</th></tr></thead>
+                            <tbody id="perfil-historial"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="card card--paper" aria-labelledby="t-pxs">
+                    <h2 id="t-pxs">Puntos que gana cada servicio</h2>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Servicio</th><th class="num">Puntos</th></tr></thead>
+                            <tbody id="puntos-servicio"></tbody>
+                        </table>
+                    </div>
+                    <h3 style="margin-top:1.4rem">Recompensas</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Recompensa</th><th class="num">Requiere</th><th></th></tr></thead>
+                            <tbody id="recompensas"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer id="site-footer"></footer>
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
