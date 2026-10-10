@@ -1,9 +1,13 @@
 package modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Barbero extends Usuario {
 
     private String especialidad;
     private float comision;
+    private List<String> permisos = new ArrayList<>(); // asignados por la administradora
 
     public Barbero() {
         super();
@@ -20,6 +24,9 @@ public class Barbero extends Usuario {
 
     public float getComision() { return comision; }
     public void setComision(float comision) { this.comision = comision; }
+
+    public List<String> getPermisos() { return permisos; }
+    public void setPermisos(List<String> permisos) { this.permisos = permisos; }
 
     @Override
     public void registrarse() {

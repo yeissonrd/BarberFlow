@@ -3,17 +3,19 @@ package modelo;
 public class Cliente extends Usuario {
 
     private int edad;
-    private String tipoCliente;
+    private String tipoCliente; // "Frecuente" | "No frecuente"
     private int puntos;
 
     public Cliente() {
         super();
     }
 
-    // Sobrecarga del constructor
+    // Sobrecarga del constructor: cliente registrado en la plataforma
     public Cliente(String nombre, String correo, String telefono, String contrasena, int edad) {
         super(nombre, correo, telefono, contrasena);
         this.edad = edad;
+        this.tipoCliente = "Frecuente";
+        this.puntos = 0;
     }
 
     public int getEdad() { return edad; }
