@@ -46,14 +46,14 @@
     const d1 = new Date(hoy); d1.setDate(hoy.getDate() + 3);
     const d2 = new Date(hoy); d2.setDate(hoy.getDate() + 10);
     return [
-      { id: "c1", servicio: "corte", barbero: "andres", fecha: toISO(d1), hora: "10:00", estado: "Confirmada" },
+      { id: "c1", servicio: "corte", barbero: "julian", fecha: toISO(d1), hora: "10:00", estado: "Confirmada" },
       { id: "c2", servicio: "skin", barbero: "mateo", fecha: toISO(d2), hora: "15:00", estado: "Confirmada" }
     ];
   }
   function leerCitas() {
     try {
       const raw = localStorage.getItem(KEY_CITAS);
-      if (raw) return JSON.parse(raw);
+      if (raw) return JSON.parse(raw).filter((c) => byId(BF.barberos, c.barbero) && byId(BF.servicios, c.servicio));
     } catch (e) { /* sin almacenamiento disponible */ }
     return citasPorDefecto();
   }
@@ -494,7 +494,7 @@
      AGENDA DEL BARBERO (calendario mensual)
      ===================================================== */
   function pageAgenda() {
-    const CLIENTES = ["Laura M.", "Diego R.", "Camilo P.", "Sofía G.", "Nico T.", "Ana L.", "Leo S.", "Sol V.", "Mateo T.", "Juan C."];
+    const CLIENTES = ["Laura M.", "Diego R.", "Camilo P.", "Sofía G.", "Nico T.", "Ana L.", "Leo S.", "Sol V.", "Andrés T.", "Juan C."];
     const hoy = new Date();
     const params = new URLSearchParams(location.search);
     const sel = { barbero: byId(BF.barberos, params.get("barbero")) ? params.get("barbero") : BF.barberos[0].id, mes: hoy.getMonth(), anio: hoy.getFullYear(), dia: null };

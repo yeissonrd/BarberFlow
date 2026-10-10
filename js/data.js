@@ -14,7 +14,7 @@ BF.servicios = [
 ];
 
 BF.barberos = [
-  { id: "andres", nombre: "Andrés Gómez",  especialidad: "Fades y cortes modernos" },
+  { id: "julian", nombre: "Julián Gómez",  especialidad: "Fades y cortes modernos" },
   { id: "kevin",  nombre: "Kevin Ramírez", especialidad: "Barba y perfilado" },
   { id: "mateo",  nombre: "Mateo Salazar", especialidad: "Skin care y cejas" }
 ];
@@ -27,10 +27,10 @@ BF.recompensas = [
 
 BF.horarios = ["09:00", "10:00", "11:00", "12:00", "14:00", "15:00", "16:00", "17:00"];
 
-BF.cliente = { nombre: "Mateo Torres", correo: "mateo@ejemplo.com", telefono: "300 123 4567", puntos: 68 };
+BF.cliente = { nombre: "Andrés Torres", correo: "andres@ejemplo.com", telefono: "300 123 4567", puntos: 68 };
 
 BF.historial = [
-  { fecha: "12 jun 2026", servicio: "Corte de cabello", barbero: "Andrés Gómez", puntos: 10 },
+  { fecha: "12 jun 2026", servicio: "Corte de cabello", barbero: "Julián Gómez", puntos: 10 },
   { fecha: "22 may 2026", servicio: "Barba",            barbero: "Kevin Ramírez", puntos: 8 },
   { fecha: "02 may 2026", servicio: "Skin care",        barbero: "Mateo Salazar", puntos: 12 }
 ];
@@ -44,7 +44,7 @@ BF.admin = {
     { nombre: "Sofía Gil",     correo: "sofia@ejemplo.com",  telefono: "313 555 0104", tipo: "No frecuente" }
   ],
   barberos: [
-    { nombre: "Andrés Gómez",  especialidad: "Fades y cortes modernos", estado: "Activo" },
+    { nombre: "Julián Gómez",  especialidad: "Fades y cortes modernos", estado: "Activo" },
     { nombre: "Kevin Ramírez", especialidad: "Barba y perfilado",       estado: "Activo" },
     { nombre: "Mateo Salazar", especialidad: "Skin care y cejas",       estado: "Activo" }
   ],
