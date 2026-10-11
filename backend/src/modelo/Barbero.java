@@ -28,8 +28,9 @@ public class Barbero extends Usuario {
     public List<String> getPermisos() { return permisos; }
     public void setPermisos(List<String> permisos) { this.permisos = permisos; }
 
-    @Override
+           @Override
     public void registrarse() {
+        registrarCorreo();
         System.out.println("Barbero registrado: " + getNombre() + " (" + getEspecialidad() + ")");
     }
 }

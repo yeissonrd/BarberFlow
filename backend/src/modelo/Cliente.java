@@ -42,8 +42,9 @@ public class Cliente extends Usuario {
     public int getPuntos() { return puntos; }
     public void setPuntos(int puntos) { this.puntos = puntos; }
 
-    @Override
+       @Override
     public void registrarse() {
+        registrarCorreo();
         System.out.println("Cliente registrado: " + getNombre() + " (" + getCorreo() + ")");
     }
 }
