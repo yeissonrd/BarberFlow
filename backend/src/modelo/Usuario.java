@@ -1,5 +1,8 @@
 package modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Usuario {
 
     private static int contador = 1;
@@ -45,4 +48,21 @@ public abstract class Usuario {
     public void recuperarContrasena() {
         // Lo implementa Yully en HU-01
     }
+    
+    // HU-01, criterio 3: correos ya registrados en el sistema
+    private static final List<String> correosRegistrados = new ArrayList<>();
+
+    // Valida que el correo no este registrado y lo guarda. Se llama desde registrarse()
+    protected void registrarCorreo() {
+        String correoActual = getCorreo();
+        if (correoActual == null || correoActual.trim().isEmpty()) {
+            throw new IllegalArgumentException("Registro no permitido: el correo es obligatorio");
+        }
+        String normalizado = correoActual.trim().toLowerCase();
+        if (correosRegistrados.contains(normalizado)) {
+            throw new IllegalArgumentException("Registro no permitido: el correo ya esta registrado");
+        }
+        correosRegistrados.add(normalizado);
+    }
+    
 }

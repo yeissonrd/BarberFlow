@@ -20,5 +20,35 @@ public class PruebaHU01 {
         // Administrador
         Administrador admin = new Administrador("Sandra Perez", "sandra@ejemplo.com", "3205551234", "clave9999");
         admin.registrarse();
+
+        // Criterio 2: el sistema impide el registro de menores de 15 anos
+        try {
+            new Cliente("Menor Prueba", "menor@ejemplo.com", "3000000000", "clave0000", 14);
+            System.out.println("ERROR: se permitio registrar a un menor de 15");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Criterio 2 OK: " + e.getMessage());
+        }
+
+        // Limite: 15 anos si se permite
+        Cliente limite = new Cliente("Limite Prueba", "limite@ejemplo.com", "3000000001", "clave0001", 15);
+        System.out.println("Edad 15 permitida: " + limite.getEdad());
+
+        // Criterio 3: el sistema valida que el correo no este registrado
+        try {
+            Cliente repetido = new Cliente("Andres Duplicado", "ANDRES@ejemplo.com", "3111111111", "clave1111", 30);
+            repetido.registrarse();
+            System.out.println("ERROR: se permitio un correo repetido");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Criterio 3 OK: " + e.getMessage());
+        }
+
+        // Criterio 3 entre roles: un barbero con el correo de la administradora
+        try {
+            Barbero otro = new Barbero("Otro Barbero", "sandra@ejemplo.com", "3222222222", "clave2222", "Barba");
+            otro.registrarse();
+            System.out.println("ERROR: se permitio un correo repetido entre roles");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Criterio 3 OK (otro rol): " + e.getMessage());
+        }
     }
 }

@@ -11,8 +11,9 @@ public class Administrador extends Usuario {
         super(nombre, correo, telefono, contrasena);
     }
 
-    @Override
+       @Override
     public void registrarse() {
+        registrarCorreo();
         System.out.println("Administrador registrado: " + getNombre() + " (" + getCorreo() + ")");
     }
 }
