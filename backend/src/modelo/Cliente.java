@@ -1,5 +1,10 @@
 package modelo;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cliente extends Usuario {
 
     private static final int EDAD_MINIMA = 15;
@@ -7,6 +12,7 @@ public class Cliente extends Usuario {
     private int edad;
     private String tipoCliente; // "Frecuente" | "No frecuente"
     private int puntos;
+    private List<Cita> citas = new ArrayList<>(); // citas agendadas por este cliente
 
     public Cliente() {
         super();
@@ -42,9 +48,25 @@ public class Cliente extends Usuario {
     public int getPuntos() { return puntos; }
     public void setPuntos(int puntos) { this.puntos = puntos; }
 
-       @Override
+    @Override
     public void registrarse() {
         registrarCorreo();
         System.out.println("Cliente registrado: " + getNombre() + " (" + getCorreo() + ")");
+    }
+
+    // HU-03: el cliente agenda una cita con un barbero en un horario disponible
+    public Cita agendarCita(Barbero barbero, Servicio servicio, LocalDate fecha, LocalTime hora) {
+        // Criterio 1: solo se puede agendar en un horario disponible del barbero
+        if (!barbero.horariosDisponibles(fecha).contains(hora)) {
+            throw new IllegalArgumentException(
+                "No se puede agendar: " + barbero.getNombre() + " no tiene disponible " + fecha + " a las " + hora);
+        }
+
+        // Criterio 2: se crea la cita con fecha, hora, servicio y barbero, y queda confirmada
+        Cita cita = new Cita(this, barbero, servicio, fecha, hora);
+        barbero.agregarCita(cita);
+        citas.add(cita);
+        cita.confirmar();
+        return cita;
     }
 }
