@@ -52,5 +52,49 @@ public class PruebaHU11 {
         // La edicion tambien funciona en otro rol
         barbero.editarPerfil("Kevin Ramirez Gomez", null, null);
         System.out.println("Barbero editado: " + barbero.getNombre());
+
+        // Criterio 2: recuperar la contrasena mediante un enlace enviado al correo
+        cliente.recuperarContrasena();
+        String enlace = cliente.getEnlaceRecuperacion();
+        System.out.println("Clave actual antes: " + cliente.verificarContrasena("clave1234"));
+
+        // Un enlace falso se rechaza
+        try {
+            cliente.restablecerContrasena("https://barberflow.com/recuperar?token=falso", "claveNueva99");
+            System.out.println("ERROR: se acepto un enlace falso");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Enlace invalido OK: " + e.getMessage());
+        }
+
+        // Con el enlace correcto la clave cambia
+        cliente.restablecerContrasena(enlace, "claveNueva99");
+        System.out.println("Clave nueva aceptada: " + cliente.verificarContrasena("claveNueva99"));
+        System.out.println("Clave anterior ya no sirve: " + !cliente.verificarContrasena("clave1234"));
+
+        // El enlace solo sirve una vez
+        try {
+            cliente.restablecerContrasena(enlace, "otraClave");
+            System.out.println("ERROR: se reutilizo un enlace");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Enlace de un solo uso OK: " + e.getMessage());
+        }
+
+        // Una contrasena vacia se rechaza
+        cliente.recuperarContrasena();
+        try {
+            cliente.restablecerContrasena(cliente.getEnlaceRecuperacion(), "   ");
+            System.out.println("ERROR: se acepto una contrasena vacia");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Contrasena vacia OK: " + e.getMessage());
+        }
+
+        // Una cuenta que no se registro no puede recuperar contrasena
+        Cliente sinCuenta = new Cliente("Sin Cuenta", "sincuenta@ejemplo.com", "3000000009", "clave0009", 30);
+        try {
+            sinCuenta.recuperarContrasena();
+            System.out.println("ERROR: se envio un enlace a un correo no registrado");
+        } catch (IllegalStateException e) {
+            System.out.println("Cuenta sin registrar OK: " + e.getMessage());
+        }
     }
 }

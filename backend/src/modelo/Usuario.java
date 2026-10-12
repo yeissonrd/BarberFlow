@@ -2,6 +2,7 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public abstract class Usuario {
 
@@ -12,6 +13,7 @@ public abstract class Usuario {
     private String correo;
     private String telefono;
     private String contrasena;
+    private String enlaceRecuperacion; // HU-11, criterio 2: enlace vigente de recuperacion
 
     public Usuario() {
         this.id = contador++;
@@ -79,8 +81,34 @@ public abstract class Usuario {
         }
     }
 
+    // HU-11, criterio 2: el sistema permite recuperar la contrasena mediante un enlace
+    // enviado al correo registrado. El envio se simula imprimiendo el enlace en consola.
     public void recuperarContrasena() {
-        // Lo implementa Yully en HU-11
+        if (correo == null || !correosRegistrados.contains(correo.trim().toLowerCase())) {
+            throw new IllegalStateException("Recuperacion no permitida: el correo no esta registrado");
+        }
+        enlaceRecuperacion = "https://barberflow.com/recuperar?token=" + UUID.randomUUID();
+        System.out.println("Enlace de recuperacion enviado a " + correo + ": " + enlaceRecuperacion);
+    }
+
+    public String getEnlaceRecuperacion() { return enlaceRecuperacion; }
+
+    // Simula que la persona abre el enlace y escribe su nueva contrasena.
+    // El enlace solo sirve una vez.
+    public void restablecerContrasena(String enlace, String nuevaContrasena) {
+        if (enlaceRecuperacion == null || !enlaceRecuperacion.equals(enlace)) {
+            throw new IllegalArgumentException("Recuperacion no permitida: el enlace no es valido");
+        }
+        if (nuevaContrasena == null || nuevaContrasena.trim().isEmpty()) {
+            throw new IllegalArgumentException("Recuperacion no permitida: la contrasena no puede estar vacia");
+        }
+        this.contrasena = nuevaContrasena;
+        this.enlaceRecuperacion = null;
+    }
+
+    // Permite comprobar una contrasena sin exponerla con un getter
+    public boolean verificarContrasena(String intento) {
+        return contrasena != null && contrasena.equals(intento);
     }
 
     // HU-01, criterio 3: correos ya registrados en el sistema
