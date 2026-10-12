@@ -41,14 +41,48 @@ public abstract class Usuario {
 
     public abstract void registrarse();
 
-    public void editarPerfil() {
-        // Lo implementa Yully en HU-01
+    // HU-11, criterio 1: el sistema permite editar los datos del perfil en cualquier momento.
+    // Un dato en null no se modifica.
+    public void editarPerfil(String nuevoNombre, String nuevoCorreo, String nuevoTelefono) {
+        if (nuevoNombre != null && nuevoNombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("Edicion no permitida: el nombre no puede estar vacio");
+        }
+
+        String correoNormalizado = null;
+        if (nuevoCorreo != null) {
+            if (nuevoCorreo.trim().isEmpty()) {
+                throw new IllegalArgumentException("Edicion no permitida: el correo no puede estar vacio");
+            }
+            correoNormalizado = nuevoCorreo.trim().toLowerCase();
+            String anterior = (correo == null) ? "" : correo.trim().toLowerCase();
+            if (!correoNormalizado.equals(anterior) && correosRegistrados.contains(correoNormalizado)) {
+                throw new IllegalArgumentException("Edicion no permitida: el correo ya esta registrado");
+            }
+        }
+
+        // Todo validado: se aplican los cambios
+        if (nuevoNombre != null) {
+            this.nombre = nuevoNombre.trim();
+        }
+        if (nuevoCorreo != null) {
+            String anterior = (correo == null) ? "" : correo.trim().toLowerCase();
+            if (!correoNormalizado.equals(anterior)) {
+                // Si la cuenta ya estaba registrada, se actualiza la lista de correos
+                if (correosRegistrados.remove(anterior)) {
+                    correosRegistrados.add(correoNormalizado);
+                }
+            }
+            this.correo = nuevoCorreo.trim();
+        }
+        if (nuevoTelefono != null) {
+            this.telefono = nuevoTelefono.trim();
+        }
     }
 
     public void recuperarContrasena() {
-        // Lo implementa Yully en HU-01
+        // Lo implementa Yully en HU-11
     }
-    
+
     // HU-01, criterio 3: correos ya registrados en el sistema
     private static final List<String> correosRegistrados = new ArrayList<>();
 
@@ -64,5 +98,4 @@ public abstract class Usuario {
         }
         correosRegistrados.add(normalizado);
     }
-    
 }
