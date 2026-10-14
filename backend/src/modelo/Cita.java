@@ -2,6 +2,8 @@ package modelo;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 public class Cita {
 
@@ -56,5 +58,26 @@ public class Cita {
              + " | " + servicio.getNombre()
              + " con " + barbero.getNombre()
              + " | Estado: " + estado;
+    }
+        // HU-14, criterio 1: horas que faltan desde ahora hasta la cita
+    public float horasParaLaCita() {
+        LocalDateTime inicio = LocalDateTime.of(fecha, hora);
+        long minutos = Duration.between(LocalDateTime.now(), inicio).toMinutes();
+        return minutos / 60f;
+    }
+
+    // HU-14, criterio 2: el horario vuelve a quedar libre en la agenda del barbero
+    public void liberarHorario() {
+        barbero.quitarCita(this);
+    }
+
+    // HU-14: cambia el estado y libera el horario
+    // La regla de las 2 horas la valida Cliente, porque barbero y admin cancelan en cualquier momento
+    public void cancelar() {
+        if (estado.equals("Cancelada")) {
+            throw new IllegalStateException("La cita #" + id + " ya estaba cancelada");
+        }
+        this.estado = "Cancelada";
+        liberarHorario();
     }
 }

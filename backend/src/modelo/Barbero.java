@@ -46,6 +46,10 @@ public class Barbero extends Usuario {
     public void agregarCita(Cita cita) {
         agenda.add(cita);
     }
+    // HU-14, criterio 2: quita la cita de la agenda para que el horario quede libre
+    public void quitarCita(Cita cita) {
+        agenda.remove(cita);
+    }
 
     // HU-03, criterio 1: horarios libres del barbero en una fecha
     public List<LocalTime> horariosDisponibles(LocalDate fecha) {
