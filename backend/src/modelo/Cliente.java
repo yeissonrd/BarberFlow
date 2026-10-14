@@ -8,6 +8,7 @@ import java.util.List;
 public class Cliente extends Usuario {
 
     private static final int EDAD_MINIMA = 15;
+    private static final int HORAS_MINIMAS_CANCELAR = 2; // HU-14
 
     private int edad;
     private String tipoCliente; // "Frecuente" | "No frecuente"
@@ -68,5 +69,20 @@ public class Cliente extends Usuario {
         citas.add(cita);
         cita.confirmar();
         return cita;
+    }
+        // HU-14: el cliente cancela una de sus citas
+    public void cancelarCita(Cita cita) {
+        // Solo puede cancelar sus propias citas
+        if (!citas.contains(cita)) {
+            throw new IllegalArgumentException(
+                "No se puede cancelar: la cita #" + cita.getId() + " no pertenece a " + getNombre());
+        }
+        // Criterio 1: solo se permite cancelar hasta 2 horas antes
+        if (cita.horasParaLaCita() < HORAS_MINIMAS_CANCELAR) {
+            throw new IllegalStateException(
+                "No se puede cancelar: faltan menos de " + HORAS_MINIMAS_CANCELAR + " horas para la cita");
+        }
+        // Criterio 2: la cita queda cancelada y el horario se libera
+        cita.cancelar();
     }
 }
