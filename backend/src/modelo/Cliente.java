@@ -8,7 +8,7 @@ import java.util.List;
 public class Cliente extends Usuario {
 
     private static final int EDAD_MINIMA = 15;
-    private static final int HORAS_MINIMAS_CANCELAR = 2; // HU-14
+    private static final int HORAS_MINIMAS_ANTICIPACION = 2; // HU-14 y HU-15
 
     private int edad;
     private String tipoCliente; // "Frecuente" | "No frecuente"
@@ -78,11 +78,27 @@ public class Cliente extends Usuario {
                 "No se puede cancelar: la cita #" + cita.getId() + " no pertenece a " + getNombre());
         }
         // Criterio 1: solo se permite cancelar hasta 2 horas antes
-        if (cita.horasParaLaCita() < HORAS_MINIMAS_CANCELAR) {
+        if (cita.horasParaLaCita() < HORAS_MINIMAS_ANTICIPACION) {
             throw new IllegalStateException(
-                "No se puede cancelar: faltan menos de " + HORAS_MINIMAS_CANCELAR + " horas para la cita");
+                "No se puede cancelar: faltan menos de " + HORAS_MINIMAS_ANTICIPACION + " horas para la cita");
         }
         // Criterio 2: la cita queda cancelada y el horario se libera
         cita.cancelar();
+    }
+
+        // HU-15: el cliente reprograma una de sus citas con el mismo barbero
+    public void reprogramarCita(Cita cita, LocalDate nuevaFecha, LocalTime nuevaHora) {
+        // Solo puede reprogramar sus propias citas
+        if (!citas.contains(cita)) {
+            throw new IllegalArgumentException(
+                "No se puede reprogramar: la cita #" + cita.getId() + " no pertenece a " + getNombre());
+        }
+        // Criterio 2: solo se permite reprogramar hasta 2 horas antes
+        if (cita.horasParaLaCita() < HORAS_MINIMAS_ANTICIPACION) {
+            throw new IllegalStateException(
+                "No se puede reprogramar: faltan menos de " + HORAS_MINIMAS_ANTICIPACION + " horas para la cita");
+        }
+        // Criterio 1: la cita pasa al nuevo horario disponible
+        cita.reprogramar(nuevaFecha, nuevaHora);
     }
 }
