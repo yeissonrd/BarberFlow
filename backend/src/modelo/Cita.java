@@ -80,4 +80,17 @@ public class Cita {
         this.estado = "Cancelada";
         liberarHorario();
     }
+        // HU-15, criterio 1: mueve la cita a un nuevo horario disponible del mismo barbero
+    // Lo reutilizan tambien el barbero (HU-21) y la administradora (HU-27)
+    public void reprogramar(LocalDate nuevaFecha, LocalTime nuevaHora) {
+        if (estado.equals("Cancelada")) {
+            throw new IllegalStateException("No se puede reprogramar: la cita #" + id + " esta cancelada");
+        }
+        if (!barbero.horariosDisponibles(nuevaFecha).contains(nuevaHora)) {
+            throw new IllegalArgumentException(
+                "No se puede reprogramar: " + barbero.getNombre() + " no tiene disponible " + nuevaFecha + " a las " + nuevaHora);
+        }
+        this.fecha = nuevaFecha;
+        this.hora = nuevaHora;
+    }
 }
