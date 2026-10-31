@@ -1,3 +1,5 @@
+package PruebasHU;
+
 import modelo.*;
 
 public class PruebaHU11 {
