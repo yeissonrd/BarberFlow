@@ -1,11 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BarberFlow</title>
+    <meta name="description" content="BarberFlow: reserva tu cita en la barbería, acumula puntos y gestiona tu agenda.">
+    <link rel="icon" href="img/logo.png">
+    <title>BarberFlow · Reserva tu cita</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-    
+<body data-page="inicio">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header id="site-header"></header>
+
+    <main id="contenido">
+        <!-- Sección principal -->
+        <section class="hero">
+            <div class="container hero__grid">
+                <div>
+                    <p class="hero__eyebrow">Barbería · Agenda · Fidelización</p>
+                    <h1>Tu estilo empieza con <em>una buena cita</em></h1>
+                    <p class="lead">Elige tu servicio, escoge a tu barbero y reserva el horario que mejor te quede. Sin filas, sin esperas y con recordatorio incluido.</p>
+                    <div class="hero__actions">
+                        <a class="btn" href="reserva.html">Agendar una cita</a>
+                        <a class="btn btn--outline" href="#servicios">Ver servicios</a>
+                    </div>
+                </div>
+                <img class="hero__photo" src="img/barberia.png" width="430" height="556"
+                     alt="Un barbero atiende a un cliente sentado en la silla de la barbería">
+            </div>
+        </section>
+
+        <!-- Servicios -->
+        <section class="section section--alt" id="servicios">
+            <div class="container">
+                <div class="section__head">
+                    <h2>Servicios disponibles</h2>
+                    <p>Todo lo que necesitas para verte bien, con profesionales y a tu horario.</p>
+                </div>
+                <div class="grid grid--4" id="lista-servicios"></div>
+            </div>
+        </section>
+
+        <!-- Barberos -->
+        <section class="section" id="barberos">
+            <div class="container">
+                <div class="section__head">
+                    <h2>Nuestros barberos</h2>
+                    <p>Conoce a tu especialista y consulta su agenda.</p>
+                </div>
+                <div class="grid grid--3" id="lista-barberos"></div>
+            </div>
+        </section>
+
+        <!-- Cómo funciona -->
+        <section class="section section--alt" id="como-funciona">
+            <div class="container">
+                <div class="section__head">
+                    <h2>Reserva fácil y gana puntos</h2>
+                    <p>Agendar toma menos de un minuto. Y cada servicio te acerca a una recompensa.</p>
+                </div>
+                <div class="grid grid--3">
+                    <div class="feature"><span class="feature__num">1</span>
+                        <div><h3>Elige y reserva</h3><p class="muted">Selecciona servicio, barbero, fecha y hora disponible.</p></div></div>
+                    <div class="feature"><span class="feature__num">2</span>
+                        <div><h3>Recibe tu recordatorio</h3><p class="muted">Te avisamos antes de la cita para que no se te pase.</p></div></div>
+                    <div class="feature"><span class="feature__num">3</span>
+                        <div><h3>Acumula puntos</h3><p class="muted">Cada servicio pagado suma puntos que puedes canjear por cortes y más.</p></div></div>
+                </div>
+                <p style="text-align:center; margin-top:2rem"><a class="btn" href="login.html#registro">Crear mi cuenta</a></p>
+            </div>
+        </section>
+    </main>
+
+    <footer id="site-footer"></footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

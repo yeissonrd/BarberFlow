@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo.png">
+    <title>BarberFlow · Iniciar sesión</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="login">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header id="site-header"></header>
+
+    <main id="contenido" class="section">
+        <div class="auth">
+            <div class="tabs" role="tablist" aria-label="Acceso">
+                <button class="tab" role="tab" data-tab="login" aria-selected="true" aria-controls="panel-login">Iniciar sesión</button>
+                <button class="tab" role="tab" data-tab="registro" aria-selected="false" aria-controls="panel-registro">Crear cuenta</button>
+            </div>
+
+            <!-- Iniciar sesión -->
+            <div class="card card--paper tab-panel" id="panel-login" role="tabpanel">
+                <h1 style="font-size:1.8rem; color:#6b5420">Bienvenido de nuevo</h1>
+                <form class="form" id="form-login" novalidate>
+                    <div class="field">
+                        <label for="login-correo">Correo electrónico</label>
+                        <input id="login-correo" name="correo" type="email" autocomplete="email" placeholder="tucorreo@ejemplo.com">
+                        <span class="field__msg" role="alert"></span>
+                    </div>
+                    <div class="field">
+                        <label for="login-clave">Contraseña</label>
+                        <div class="pass-wrap">
+                            <input id="login-clave" name="clave" type="password" autocomplete="current-password">
+                            <button type="button" class="pass-toggle" data-target="login-clave" aria-pressed="false">Mostrar</button>
+                        </div>
+                        <span class="field__msg" role="alert"></span>
+                    </div>
+                    <p class="small"><button type="button" class="link-btn" id="btn-recuperar">¿Olvidaste tu contraseña?</button></p>
+                    <button class="btn btn--block" type="submit">Ingresar</button>
+                    <div id="login-result" role="status" hidden></div>
+                    <p class="small" style="margin:1rem 0 0">¿No tienes cuenta? <button type="button" class="link-btn" data-goto="registro">Crea una aquí</button></p>
+                </form>
+            </div>
+
+            <!-- Crear cuenta -->
+            <div class="card card--paper tab-panel" id="panel-registro" role="tabpanel" hidden>
+                <h1 style="font-size:1.8rem; color:#6b5420">Crea tu cuenta</h1>
+                <form class="form" id="form-registro" novalidate>
+                    <div class="field">
+                        <label for="reg-nombre">Nombre completo</label>
+                        <input id="reg-nombre" name="nombre" type="text" autocomplete="name">
+                        <span class="field__msg" role="alert"></span>
+                    </div>
+                    <div class="field">
+                        <label for="reg-correo">Correo electrónico</label>
+                        <input id="reg-correo" name="correo" type="email" autocomplete="email">
+                        <span class="field__msg" role="alert"></span>
+                    </div>
+                    <div class="field">
+                        <label for="reg-telefono">Teléfono</label>
+                        <input id="reg-telefono" name="telefono" type="tel" inputmode="numeric" autocomplete="tel" placeholder="300 123 4567">
+                        <span class="field__msg" role="alert"></span>
+                    </div>
+                    <div class="field">
+                        <label for="reg-clave">Contraseña</label>
+                        <div class="pass-wrap">
+                            <input id="reg-clave" name="clave" type="password" autocomplete="new-password" aria-describedby="reg-clave-hint">
+                            <button type="button" class="pass-toggle" data-target="reg-clave" aria-pressed="false">Mostrar</button>
+                        </div>
+                        <span class="field__hint" id="reg-clave-hint">Mínimo 8 caracteres.</span>
+                        <span class="field__msg" role="alert"></span>
+                    </div>
+                    <div class="field">
+                        <label for="reg-edad">Edad</label>
+                        <input id="reg-edad" name="edad" type="number" min="1" max="100" inputmode="numeric" aria-describedby="reg-edad-hint">
+                        <span class="field__hint" id="reg-edad-hint">Las personas menores de 15 años no pueden registrarse.</span>
+                        <span class="field__msg" role="alert"></span>
+                    </div>
+                    <button class="btn btn--block" type="submit">Crear cuenta</button>
+                    <div id="registro-result" role="status" hidden></div>
+                    <p class="small" style="margin:1rem 0 0">¿Ya tienes cuenta? <button type="button" class="link-btn" data-goto="login">Inicia sesión</button></p>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <dialog id="dlg-recuperar" aria-labelledby="rec-title">
+        <form method="dialog" class="form" novalidate>
+            <h2 id="rec-title">Recuperar contraseña</h2>
+            <p class="muted">Escribe tu correo y te enviaremos un enlace para restablecerla.</p>
+            <div class="field"><label for="rec-correo">Correo electrónico</label>
+                <input id="rec-correo" type="email" autocomplete="email">
+                <span class="field__msg" id="rec-msg" role="alert"></span></div>
+            <div class="dialog-actions">
+                <button class="btn btn--outline btn--sm" value="cancel" formnovalidate>Cerrar</button>
+                <button class="btn btn--sm" id="rec-enviar" type="button">Enviar enlace</button>
+            </div>
+        </form>
+    </dialog>
+
+    <footer id="site-footer"></footer>
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo.png">
+    <title>BarberFlow · Agenda del barbero</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="agenda">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header id="site-header"></header>
+
+    <main id="contenido" class="section">
+        <div class="container">
+            <h1>Agenda del barbero</h1>
+            <p class="muted">Citas de ejemplo (demostración). Elige un barbero y el periodo que quieres revisar.</p>
+
+            <div class="card card--paper">
+                <div class="toolbar form">
+                    <div class="field">
+                        <label for="sel-barbero">Barbero</label>
+                        <select id="sel-barbero"></select>
+                    </div>
+                    <div class="field">
+                        <label for="sel-mes">Mes</label>
+                        <select id="sel-mes"></select>
+                    </div>
+                    <div class="field">
+                        <label for="sel-anio">Año</label>
+                        <select id="sel-anio"></select>
+                    </div>
+                    <div class="toolbar__nav">
+                        <button class="btn btn--outline btn--sm" type="button" id="btn-prev" aria-label="Mes anterior">← Anterior</button>
+                        <button class="btn btn--sm" type="button" id="btn-hoy">Hoy</button>
+                        <button class="btn btn--outline btn--sm" type="button" id="btn-next" aria-label="Mes siguiente">Siguiente →</button>
+                    </div>
+                </div>
+
+                <h2 class="cal__title" id="cal-titulo" aria-live="polite"></h2>
+                <p class="small muted" id="cal-resumen" aria-live="polite" style="text-align:center"></p>
+                <div class="cal" id="cal"></div>
+            </div>
+
+            <section class="card card--paper" style="margin-top:1.2rem" aria-labelledby="t-dia">
+                <h2 id="t-dia" class="sr-only">Detalle del día</h2>
+                <div id="dia-detalle" aria-live="polite"></div>
+            </section>
+        </div>
+    </main>
+
+    <footer id="site-footer"></footer>
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
