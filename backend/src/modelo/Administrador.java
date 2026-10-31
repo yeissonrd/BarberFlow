@@ -63,4 +63,21 @@ public class Administrador extends Usuario {
         barbero.setPermisos(nuevos);
         System.out.println("Permisos de " + barbero.getNombre() + " actualizados: " + nuevos);
     }
+    
+    // ---------- HU-28: Cancelar cualquier cita ----------
+
+    /**
+     * HU-28: la administradora cancela cualquier cita de cualquier barbero.
+     * No tiene la regla de las 2 horas del cliente (HU-14): puede cancelar en cualquier momento.
+     * Reutiliza Cita.cancelar(), que cambia el estado a "Cancelada" y libera el horario.
+     */
+    public void cancelarCita(Cita cita) {
+        // La cita debe existir
+        if (cita == null) {
+            throw new IllegalArgumentException("No se puede cancelar: falta la cita");
+        }
+        // Criterio 1: se cancela sin revisar cuanto falta para la cita
+        // Criterio 2: Cita.cancelar() libera el horario en la agenda del barbero
+        cita.cancelar();
+    }
 }
