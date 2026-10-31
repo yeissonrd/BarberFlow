@@ -55,7 +55,7 @@ BarberFlow/
     └── src/
         ├── modelo/     # Clases: Usuario, Cliente, Barbero, Administrador,
         │               #         Cita, Servicio, Barberia
-        └── PruebaHUxx.java   # Pruebas de cada historia de usuario
+        └── PruebasHU/  # Pruebas de cada historia de usuario (PruebaHUxx.java)
 ```
 
 ## ▶️ Cómo ejecutar
@@ -67,7 +67,7 @@ BarberFlow/
 **Backend (Java)**
 1. Tener instalado el **JDK 21** o superior.
 2. Abrir la carpeta del proyecto en VS Code con el **Extension Pack for Java**.
-3. Abrir cualquier archivo `backend/src/PruebaHUxx.java` y dar clic en **▶ Run**.
+3. Abrir cualquier archivo `backend/src/PruebasHU/PruebaHUxx.java` y dar clic en **Run** (encima de `main`).
 
 ## 🌿 Flujo de trabajo con Git
 
@@ -90,7 +90,7 @@ BarberFlow/
 | HU-11 | Gestionar mi perfil | Yully | ✅ Listo |
 | HU-03 | Agendar una cita | Yeisson | ✅ Listo |
 | HU-14 | Cancelar una cita | Yeisson | ✅ Listo |
-| HU-15 | Reprogramar una cita | Yeisson | ⏳ Pendiente |
+| HU-15 | Reprogramar una cita | Yeisson | ✅ Listo |
 
 ---
 
