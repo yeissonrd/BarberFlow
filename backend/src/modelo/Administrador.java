@@ -1,13 +1,17 @@
 package modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Administradora de la barbería. Hereda de Usuario (extends) los datos personales y el registro.
+ * Administradora de la barberia. Hereda de Usuario (extends) los datos personales y el registro.
  * Por ahora no tiene atributos propios: sus funciones (gestionar barberos, servicios,
  * horarios y todas las agendas) llegan en los siguientes sprints.
+ * HU que implementa: HU-01 (registro) y HU-25 (asignar permisos a los barberos).
  */
 public class Administrador extends Usuario {
 
-    // Constructor vacío
+    // Constructor vacio
     public Administrador() {
         super();
     }
@@ -25,5 +29,38 @@ public class Administrador extends Usuario {
     public void registrarse() {
         registrarCorreo();
         System.out.println("Administrador registrado: " + getNombre() + " (" + getCorreo() + ")");
+    }
+
+    // ---------- Permisos de los barberos (HU-25) ----------
+
+    /**
+     * HU-25, criterio 1: asigna o modifica los permisos de un barbero asociado.
+     * Reemplaza la lista de permisos del barbero por la nueva. Para modificarlos se vuelve a llamar
+     * con la lista actualizada.
+     * Se guarda una copia de la lista, asi los permisos quedan vinculados al perfil de ese barbero
+     * y no se comparten con otro barbero ni con la lista original.
+     */
+    public void asignarPermisos(Barbero barbero, List<String> permisos) {
+        if (barbero == null) {
+            throw new IllegalArgumentException("No se pueden asignar permisos: falta el barbero");
+        }
+        if (permisos == null) {
+            throw new IllegalArgumentException("No se pueden asignar permisos: falta la lista de permisos");
+        }
+
+        // Se valida todo antes de cambiar nada: si hay un permiso vacio, el barbero queda como estaba
+        List<String> nuevos = new ArrayList<>();
+        for (String permiso : permisos) {
+            if (permiso == null || permiso.trim().isEmpty()) {
+                throw new IllegalArgumentException("No se pueden asignar permisos: hay un permiso vacio");
+            }
+            String limpio = permiso.trim();
+            if (!nuevos.contains(limpio)) {
+                nuevos.add(limpio);
+            }
+        }
+
+        barbero.setPermisos(nuevos);
+        System.out.println("Permisos de " + barbero.getNombre() + " actualizados: " + nuevos);
     }
 }

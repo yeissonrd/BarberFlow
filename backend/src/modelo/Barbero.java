@@ -9,7 +9,8 @@ import java.util.List;
 /**
  * Barbero de la barbería. Hereda de Usuario (extends) los datos personales y el registro.
  * Maneja su agenda de citas y calcula sus horarios disponibles.
- * HU que implementa: HU-01 (registro), HU-03 (horarios disponibles) y HU-14 (liberar horario).
+ * HU que implementa: HU-01 (registro), HU-03 (horarios disponibles), HU-14 (liberar horario)
+ * y HU-25 (consultar sus permisos).
  */
 public class Barbero extends Usuario {
 
@@ -43,6 +44,22 @@ public class Barbero extends Usuario {
 
     public DayOfWeek getDiaDescanso() { return diaDescanso; }
     public void setDiaDescanso(DayOfWeek diaDescanso) { this.diaDescanso = diaDescanso; }
+
+    /**
+     * HU-25, criterio 1: dice si el barbero tiene un permiso asignado en su perfil.
+     * No distingue mayusculas de minusculas.
+     */
+    public boolean tienePermiso(String permiso) {
+        if (permiso == null || permisos == null) {
+            return false;
+        }
+        for (String asignado : permisos) {
+            if (asignado.equalsIgnoreCase(permiso.trim())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * HU-01: registra al barbero en la plataforma.
