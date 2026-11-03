@@ -1,5 +1,7 @@
 package modelo;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +9,8 @@ import java.util.List;
  * Administradora de la barberia. Hereda de Usuario (extends) los datos personales y el registro.
  * Por ahora no tiene atributos propios: sus funciones (gestionar barberos, servicios,
  * horarios y todas las agendas) llegan en los siguientes sprints.
- * HU que implementa: HU-01 (registro) y HU-25 (asignar permisos a los barberos).
+ * HU que implementa: HU-01 (registro), HU-25 (asignar permisos a los barberos),
+ * HU-28 (cancelar cualquier cita) y HU-27 (reprogramar cualquier cita).
  */
 public class Administrador extends Usuario {
 
@@ -63,7 +66,7 @@ public class Administrador extends Usuario {
         barbero.setPermisos(nuevos);
         System.out.println("Permisos de " + barbero.getNombre() + " actualizados: " + nuevos);
     }
-    
+
     // ---------- HU-28: Cancelar cualquier cita ----------
 
     /**
@@ -79,5 +82,27 @@ public class Administrador extends Usuario {
         // Criterio 1: se cancela sin revisar cuanto falta para la cita
         // Criterio 2: Cita.cancelar() libera el horario en la agenda del barbero
         cita.cancelar();
+    }
+
+    // ---------- HU-27: Reprogramar cualquier cita ----------
+
+    /**
+     * HU-27: la administradora reprograma cualquier cita de cualquier barbero a un nuevo horario.
+     * No tiene la regla de las 2 horas del cliente (HU-15): puede reprogramar en cualquier momento,
+     * y tampoco valida que la cita sea propia.
+     * Reutiliza Cita.reprogramar(), que rechaza las citas canceladas y los horarios que el barbero
+     * no tiene disponibles. Criterio 2: asi nunca quedan dos citas del mismo barbero en el mismo horario.
+     */
+    public void reprogramarCita(Cita cita, LocalDate nuevaFecha, LocalTime nuevaHora) {
+        // La cita y el nuevo horario deben existir
+        if (cita == null) {
+            throw new IllegalArgumentException("No se puede reprogramar: falta la cita");
+        }
+        if (nuevaFecha == null || nuevaHora == null) {
+            throw new IllegalArgumentException("No se puede reprogramar: falta la nueva fecha o la nueva hora");
+        }
+        // Criterio 1: se reprograma sin revisar cuanto falta para la cita
+        // Criterio 2: Cita.reprogramar() valida que el barbero tenga libre el nuevo horario
+        cita.reprogramar(nuevaFecha, nuevaHora);
     }
 }
