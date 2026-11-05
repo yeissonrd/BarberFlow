@@ -10,7 +10,8 @@ import java.util.List;
  * Por ahora no tiene atributos propios: sus funciones (gestionar barberos, servicios,
  * horarios y todas las agendas) llegan en los siguientes sprints.
  * HU que implementa: HU-01 (registro), HU-25 (asignar permisos a los barberos),
- * HU-28 (cancelar cualquier cita) y HU-27 (reprogramar cualquier cita).
+ * HU-28 (cancelar cualquier cita), HU-27 (reprogramar cualquier cita)
+ * y HU-26 (crear citas para cualquier barbero).
  */
 public class Administrador extends Usuario {
 
@@ -104,5 +105,34 @@ public class Administrador extends Usuario {
         // Criterio 1: se reprograma sin revisar cuanto falta para la cita
         // Criterio 2: Cita.reprogramar() valida que el barbero tenga libre el nuevo horario
         cita.reprogramar(nuevaFecha, nuevaHora);
+    }
+
+    // ---------- HU-26: Crear citas para cualquier barbero ----------
+
+    /**
+     * HU-26: la administradora crea una cita en la agenda de cualquier barbero para un cliente.
+     * Devuelve la cita creada y confirmada.
+     * Reutiliza Cliente.agendarCita(), que valida que el barbero tenga libre ese horario
+     * (criterio 2: nunca quedan dos citas del mismo barbero en el mismo horario), crea la cita,
+     * la guarda en la agenda del barbero y en la lista del cliente, y la confirma.
+     * Asi el cliente despues puede cancelar o reprogramar esta cita como cualquier otra.
+     */
+    public Cita crearCita(Barbero barbero, Cliente cliente, Servicio servicio, LocalDate fecha, LocalTime hora) {
+        // Todos los datos de la cita deben existir
+        if (barbero == null) {
+            throw new IllegalArgumentException("No se puede crear la cita: falta el barbero");
+        }
+        if (cliente == null) {
+            throw new IllegalArgumentException("No se puede crear la cita: falta el cliente");
+        }
+        if (servicio == null) {
+            throw new IllegalArgumentException("No se puede crear la cita: falta el servicio");
+        }
+        if (fecha == null || hora == null) {
+            throw new IllegalArgumentException("No se puede crear la cita: falta la fecha o la hora");
+        }
+        // Criterio 1: la administradora puede crear la cita en la agenda de cualquier barbero
+        // Criterio 2: Cliente.agendarCita() rechaza los horarios que el barbero no tiene disponibles
+        return cliente.agendarCita(barbero, servicio, fecha, hora);
     }
 }
