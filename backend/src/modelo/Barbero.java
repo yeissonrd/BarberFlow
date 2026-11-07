@@ -82,6 +82,19 @@ public class Barbero extends Usuario {
     public void quitarCita(Cita cita) {
         agenda.remove(cita);
     }
+    
+    // HU-30, criterio 2: dice si el barbero tiene citas agendadas, de hoy en adelante,
+    // en ese día de la semana (por ejemplo, en algún miércoles)
+    public boolean tieneCitasEnDia(DayOfWeek dia) {
+        for (Cita cita : agenda) {
+            if (cita.getFecha().getDayOfWeek() == dia
+                    && !cita.getFecha().isBefore(LocalDate.now())
+                    && !cita.getEstado().equals("Cancelada")) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * HU-03, criterio 1: devuelve solo los horarios libres del barbero en una fecha.

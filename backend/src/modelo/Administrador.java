@@ -1,5 +1,5 @@
 package modelo;
-
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -165,5 +165,32 @@ public class Administrador extends Usuario {
         }
         Collections.sort(nuevas);
         Barberia.setHorarioAtencion(nuevas);
+    }
+    
+    // ---------- HU-30: Asignar el día de descanso de cada barbero ----------
+
+    /**
+     * HU-30: asigna o cambia el día de descanso semanal de un barbero.
+     * Criterio 1: se usa al registrar al barbero para asignarle su único día de descanso.
+     * Criterio 2: si el barbero pide cambiarlo, la administradora vuelve a llamar este método
+     * con el nuevo día. No se permite el cambio si el barbero ya tiene citas ese día de la semana:
+     * primero hay que reprogramarlas (HU-27) o cancelarlas (HU-28).
+     * Criterio 3: Barbero.horariosDisponibles() no ofrece horarios en el día de descanso.
+     */
+    public void asignarDiaDescanso(Barbero barbero, DayOfWeek dia) {
+        // El barbero y el día deben existir
+        if (barbero == null) {
+            throw new IllegalArgumentException("No se puede asignar el descanso: falta el barbero");
+        }
+        if (dia == null) {
+            throw new IllegalArgumentException("No se puede asignar el descanso: falta el dia");
+        }
+        // Criterio 2: no se puede descansar un día en el que ya tiene citas agendadas
+        if (barbero.tieneCitasEnDia(dia)) {
+            throw new IllegalStateException(
+                "No se puede asignar el descanso: " + barbero.getNombre() + " tiene citas agendadas el " + dia);
+        }
+        // Es un solo atributo, así que el barbero siempre tiene un único día de descanso
+        barbero.setDiaDescanso(dia);
     }
 }
