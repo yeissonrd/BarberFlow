@@ -11,7 +11,7 @@ import java.util.List;
 public class Barberia {
 
     // Horario de atención por defecto: de 9 a 12 y de 14 a 17 (una cita por hora).
-    // La administradora lo podrá cambiar en HU-29.
+    // La administradora lo cambia con Administrador.configurarHorarioAtencion() (HU-29).
     private static List<LocalTime> horarioAtencion = new ArrayList<>(List.of(
         LocalTime.of(9, 0), LocalTime.of(10, 0), LocalTime.of(11, 0), LocalTime.of(12, 0),
         LocalTime.of(14, 0), LocalTime.of(15, 0), LocalTime.of(16, 0), LocalTime.of(17, 0)
@@ -20,5 +20,11 @@ public class Barberia {
     // HU-03, criterio 1: el barbero consulta aquí el horario vigente para calcular sus horarios libres
     public static List<LocalTime> getHorarioAtencion() {
         return horarioAtencion;
+    }
+    
+    // HU-29, criterio 1: guarda el nuevo horario de atención.
+    // Lo llama Administrador.configurarHorarioAtencion(), que primero valida la lista.
+    public static void setHorarioAtencion(List<LocalTime> horas) {
+        horarioAtencion = new ArrayList<>(horas);
     }
 }

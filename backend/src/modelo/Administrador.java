@@ -3,6 +3,7 @@ package modelo;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -134,5 +135,35 @@ public class Administrador extends Usuario {
         // Criterio 1: la administradora puede crear la cita en la agenda de cualquier barbero
         // Criterio 2: Cliente.agendarCita() rechaza los horarios que el barbero no tiene disponibles
         return cliente.agendarCita(barbero, servicio, fecha, hora);
+    }
+    
+    // ---------- HU-29: Configurar el horario de atención ----------
+
+    /**
+     * HU-29, criterio 1: define o modifica las horas en que la barbería atiende citas.
+     * Recibe la lista completa de horas y reemplaza el horario anterior.
+     * Quita las horas repetidas y las ordena de menor a mayor.
+     * Criterio 2: Barbero.horariosDisponibles() lee este horario, así que a los clientes
+     * solo se les ofrecen horas dentro del horario vigente.
+     * Las citas ya agendadas no se borran: si quedan por fuera del nuevo horario,
+     * la administradora puede reprogramarlas (HU-27) o cancelarlas (HU-28).
+     */
+    public void configurarHorarioAtencion(List<LocalTime> horas) {
+        // La lista debe tener al menos una hora
+        if (horas == null || horas.isEmpty()) {
+            throw new IllegalArgumentException("No se puede configurar el horario: la lista de horas esta vacia");
+        }
+        // Se valida todo antes de cambiar nada: si hay una hora vacía, el horario queda como estaba
+        List<LocalTime> nuevas = new ArrayList<>();
+        for (LocalTime hora : horas) {
+            if (hora == null) {
+                throw new IllegalArgumentException("No se puede configurar el horario: hay una hora vacia");
+            }
+            if (!nuevas.contains(hora)) {
+                nuevas.add(hora);
+            }
+        }
+        Collections.sort(nuevas);
+        Barberia.setHorarioAtencion(nuevas);
     }
 }
